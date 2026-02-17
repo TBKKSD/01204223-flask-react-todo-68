@@ -9,6 +9,9 @@ function TodoItem({todo, toggleDone, deleteTodo, addNewComment}) {
             <span className={todo.done ? "done" : ""}>{todo.title}</span>
             <button onClick={() => {toggleDone(todo.id)}}>Toggle</button>
             <button onClick={() => {deleteTodo(todo.id)}}>❌</button>
+            <p>
+              {todo.comments ? `${todo.comments.length} comment(s)` : "0 comments"}  
+            </p>
 
             {(todo.comments) && (todo.comments.length > 0) && (
               <>
@@ -19,6 +22,9 @@ function TodoItem({todo, toggleDone, deleteTodo, addNewComment}) {
                   ))}
                 </ul>
               </>
+            )}
+            {(!todo.comments || todo.comments.length === 0) && (
+              <p>No comments</p>
             )}
 
             <div className="new-comment-forms">
