@@ -89,7 +89,6 @@ def add_comment(todo_id):
 @click.argument("username")
 @click.argument("full_name")
 @click.argument("password")
-@jwt_required()
 def create_user(username, full_name, password):
     user = User.query.filter_by(username=username).first()
     if user:
