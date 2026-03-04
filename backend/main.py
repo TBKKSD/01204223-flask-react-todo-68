@@ -39,6 +39,7 @@ def new_todo(data):
                     done=data.get('done', False))
 
 @app.route('/api/todos/', methods=['POST'])
+@jwt_required()
 def add_todo():
     data = request.get_json()
     todo = new_todo(data)
@@ -51,6 +52,7 @@ def add_todo():
         return (jsonify({'error': 'Invalid todo data'}), 400)
 
 @app.route('/api/todos/<int:id>/toggle/', methods=['PATCH'])
+@jwt_required()
 def toggle_todo(id):
     todo = TodoItem.query.get_or_404(id)
     todo.done = not todo.done
@@ -59,6 +61,7 @@ def toggle_todo(id):
 
 
 @app.route('/api/todos/<int:id>/', methods=['DELETE'])
+@jwt_required()
 def delete_todo(id):
     todo = TodoItem.query.get_or_404(id)
     db.session.delete(todo)
@@ -66,6 +69,7 @@ def delete_todo(id):
     return jsonify({'message': 'Todo deleted successfully'})
 
 @app.route('/api/todos/<int:todo_id>/comments/', methods=['POST'])
+@jwt_required()
 def add_comment(todo_id):
     todo_item = TodoItem.query.get_or_404(todo_id)
 
