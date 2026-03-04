@@ -7,6 +7,7 @@ from models import User
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from flask_jwt_extended import JWTManager
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -28,7 +29,7 @@ todo_list = [
 ]
 
 @app.route('/api/todos/', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_todos():
     todos = TodoItem.query.all()
     return jsonify([todo.to_dict() for todo in todos])
@@ -37,7 +38,6 @@ def new_todo(data):
     return TodoItem(title=data['title'], 
                     done=data.get('done', False))
 
-@app.route('/api/todos/', methods=['POST'])
 @app.route('/api/todos/', methods=['POST'])
 def add_todo():
     data = request.get_json()
