@@ -29,7 +29,7 @@ todo_list = [
 ]
 
 @app.route('/api/todos/', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_todos():
     todos = TodoItem.query.all()
     return jsonify([todo.to_dict() for todo in todos])

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '../public/vite.svg'
-import './App.css'
-import TodoItem from './TodoItem.jsx'
-import LoginForm from './LoginForm.jsx';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext.jsx';
+import './App.css'
+
+import TodoList from './TodoList.jsx'
+import LoginForm from './LoginForm.jsx';
+
 
 function App() {
   const TODOLIST_API_URL = 'http://localhost:5000/api/todos/';
@@ -30,13 +30,14 @@ function App() {
               </>
             } 
           />
+          <Route
+              path="/login"
+              element={
+                <LoginForm loginUrl={TODOLIST_LOGIN_URL} />
+              }
+            />  
         </Routes>
-        <Route
-            path="/login"
-            element={
-              <LoginForm loginUrl={TODOLIST_LOGIN_URL} />
-            }
-          />
+        
       </BrowserRouter>
     </AuthProvider>
     

@@ -4,6 +4,7 @@ import { useAuth } from "./context/AuthContext";
 
 function LoginForm({loginUrl}) {
   const { login, username: loggedInUsername } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -33,10 +34,13 @@ function LoginForm({loginUrl}) {
   }
   return (
     <form onSubmit={(e) => {handleLogin(e)}}>
-      {errorMessage && <p>{errorMessage}</p>}
+      Username:
+      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <br/>
+      Password:
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <br/>
       <button type="submit">Login</button>
-      
-      {loggedInUsername && <p>User {loggedInUsername} is already logged in.</p>}
     </form>
   );
 }
