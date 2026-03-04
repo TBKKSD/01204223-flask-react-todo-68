@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 import { useAuth } from "./context/AuthContext";
+import { useNavigate } from 'react-router-dom'
 
 function LoginForm({loginUrl}) {
   const { login, username: loggedInUsername } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -24,7 +25,8 @@ function LoginForm({loginUrl}) {
         console.log(data);
         alert("Login successful.  access token = " + data.access_token);
         // เรียกฟังก์ชัน login เพื่อเก็บ username และ token
-        login(username, data.access_token);  
+        login(username, data.access_token);
+        navigate('/');  
     } else if (response.status === 401) {
         setErrorMessage("Invalid username or password");
       }
@@ -41,6 +43,7 @@ function LoginForm({loginUrl}) {
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <br/>
       <button type="submit">Login</button>
+      {loggedInUsername && <p>User {loggedInUsername} is already logged in.</p>}
     </form>
   );
 }
