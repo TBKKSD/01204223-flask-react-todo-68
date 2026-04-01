@@ -22,7 +22,7 @@ function LoginForm({loginUrl}) {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         //alert("Login successful.  access token = " + data.access_token);
         // เรียกฟังก์ชัน login เพื่อเก็บ username และ token
         login(username, data.access_token);
